@@ -1,4 +1,4 @@
-require("dotenv").config({ path: "./config.env" })
+require("dotenv").config({ path: "../config.env" })
 const fs = require("fs")
 const Post = require("../models/Post")
 const connectDB = require("../config/db")
@@ -9,6 +9,7 @@ const posts = JSON.parse(fs.readFileSync(`${__dirname}/posts.json`, "utf-8"))
 
 const importData = async () => {
   try {
+    await Post.deleteMany()
     await Post.create(posts)
     console.log("Data Successfully imported 👌")
     process.exit(0)
